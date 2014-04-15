@@ -6,7 +6,7 @@ class DezhouEMWorker
   def initialize(&block)
     @config = {
       is_running: false,
-      time: 1.0/1000,
+      time: 1.0/100,
       tables:[]
     }
   end
