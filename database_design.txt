@@ -1,0 +1,34 @@
+
+###用户手牌详情表
+playerPokersSlug 倒序排列的牌值组+同色状态 3Q1 ---> Q31 (主键)
+allGameTimes 比赛中出现的次数
+playerPokers 倒序排列的牌值组 3Q ---> Q3
+isPlayerPokersFlush 是否相同色
+
+
+###翻牌阶段统计
+flopWinnerTimes      第一名次数
+flopSecondPlaceTimes 第二名次数
+flopThirdPlaceTimes  第三名次数
+
+###转牌阶段统计
+turnWinnerTimes      第一名次数
+turnSecondPlaceTimes 第二名次数
+turnThirdPlaceTimes  第三名次数
+
+###河牌阶段统计
+riverWinnerTimes      第一名次数
+riverSecondPlaceTimes 第二名次数
+riverThirdPlaceTimes  第三名次数
+
+#其它
+players_count 玩家数
+
+
+
+
+
+
+
+
+

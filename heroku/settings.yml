@@ -1,0 +1,18 @@
+default: &default
+  powered: jeffrey
+  email: jeffrey6052@163.com
+  redis:
+    online: false
+    expire: 86400
+
+development:
+  <<: *default
+  static_root: '/assets'
+  static_version: ''
+  oss_root: http://suixin365.oss.aliyuncs.com
+
+production:
+  <<: *default
+  static_root: 'http://img.suixin365.com/assets'
+  static_version: '20140404'
+  oss_root: http://suixin365.oss.aliyuncs.com

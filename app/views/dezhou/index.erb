@@ -1,0 +1,84 @@
+<div>德州扑克胜率统计</div>
+<div>模拟德州扑克的牌局，统计各种手牌的胜率情况</div>
+<br>
+
+<style type="text/css">
+
+body {
+  margin:0 auto;
+  width:1000px;
+}
+table {
+display: table;
+border-collapse: separate;
+border-spacing: 2px;
+border-color: gray;
+border-collapse: collapse;
+}
+
+table tr td {
+  border: 1px solid #98bf21;
+}
+
+td, th {
+display: table-cell;
+vertical-align: inherit;
+}
+
+a {
+  text-decoration:none;
+}
+
+</style>
+
+<table class='table-striped' style='text-align:center;line-height:30px;'>
+  <tr>
+    <td colspan='5' style='font-weight:bold;'>
+    程序运行状态: 
+    <% if @is_running %>
+    <span style='color:green;'>正在运行</span> <input type='button' value='停止' onclick='location.href="/pause_running"' >
+    <% else %>
+    <span style='color:red;'>已经停止</span> <input type='button' value='运行' onclick='location.href="/start_running"'>
+    <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;牌桌名称&nbsp;</td>
+    <td>&nbsp;开场&nbsp;</td>
+    <td>&nbsp;&nbsp;</td>
+    <td>&nbsp;&nbsp;</td>
+    <td>&nbsp;&nbsp;</td>
+  </tr>
+  <% @tables.each do |playerSum,data| %>
+  <tr>
+    <td><a href="/<%= playerSum %>"><%= playerSum %>人桌</a></td>
+    <td>
+      <% if data[:exist] %>
+        <span style='color:green;font-weight:bold;'>OK</span>
+      <% else %>
+        <span style='color:red;font-weight:bold;'>NO</span>
+      <% end %>
+    </td>
+    <td>
+      <% if data[:exist] %>
+        <input type='button' value='散场' onclick='location.href="/<%= playerSum %>/remove_table"'>
+      <% else %>
+        <input type='button' value='开场' onclick='location.href="/<%= playerSum %>/add_table"'>
+      <% end %>
+    </td>
+    <td style='padding:0 4px;'>
+      <a href="/<%= playerSum %>" style='padding:0 5px;display:inline-block;'>模拟局</a>
+    </td>
+    <td style='padding:0 4px;'>
+      <a href="/<%= playerSum %>/rank" style='padding:0 5px;display:inline-block;'>手牌胜率</a>
+    </td>
+
+  </tr>
+  <% end %>
+
+</table>
+
+
+
+
+

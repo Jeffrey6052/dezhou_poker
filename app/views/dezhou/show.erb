@@ -1,0 +1,80 @@
+
+<style type="text/css">
+
+body {
+  margin:0 auto;
+  width:1000px;
+}
+
+table {
+display: table;
+border-collapse: separate;
+border-spacing: 2px;
+border-color: gray;
+border-collapse: collapse;
+}
+
+table tr td {
+  border: 1px solid #98bf21;
+}
+
+td, th {
+display: table-cell;
+vertical-align: inherit;
+}
+
+a {
+  text-decoration:none;
+}
+
+</style>
+
+<br>
+<div>
+<a href="/">德州扑克</a> / <a href="/<%= params[:playerSum] %>"><%= params[:playerSum] %>人桌模拟局 </a> / <a href="/<%= params[:playerSum] %>/rank"><%= params[:playerSum] %>人桌手牌胜率排行榜 </a>
+</div>
+
+<br>
+<h3><%= params[:playerSum] %>人桌模拟局</h3>
+<br>
+
+<table class='table-striped' style='text-align:center;line-height:30px;'>
+<tr>
+  <td>公共牌</td>
+  <td colspan='3'><%== pokers_html(@publicPokers) %></td>
+  <td colspan='1'></td>
+  <td colspan='5'><a href="/<%= params[:playerSum] %>/rank">手牌胜率排行榜</a></td>
+</tr>
+<tr>
+  <td>&nbsp;昵称&nbsp;</td>
+  <td>&nbsp;最终排名&nbsp;</td>
+  <td>&nbsp;手牌&nbsp;</td>
+  <td>&nbsp;成牌&nbsp;</td>
+  <td>&nbsp;&nbsp;</td>
+  <td>&nbsp;转牌&nbsp;</td>
+  <td>&nbsp;转牌排名&nbsp;</td>
+  <td>&nbsp;&nbsp;</td>
+  <td>&nbsp;翻牌&nbsp;</td>
+  <td>&nbsp;翻牌排名&nbsp;</td>
+</tr>
+<% @players.each do |player| %>
+<tr>
+  <td><%= "玩家#{player[:place]}" %></td>
+  <td><%== rank_html player[:river][:rank] %></td>
+  <td onclick='window.open("/<%= params[:playerSum] %>/rank?pokers=<%= get_playerPokers(player[:pokers]) %>");' title="   点击查询 <%= "#{player[:pokers].join(' ')} 的胜率" %>" style='cursor:pointer;'><%== pokers_html(player[:pokers]) %>   </td>
+  <td><%== pokers_html(player[:river][:nuts]) %>  </td>
+  <td>&nbsp;&nbsp;</td>
+  <td><%== pokers_html(player[:turn][:nuts]) %>  </td>
+  <td><%== rank_html player[:turn][:rank] %></td>
+  <td>&nbsp;&nbsp;</td>
+  <td><%== pokers_html(player[:flop][:nuts]) %>  </td>
+  <td><%== rank_html player[:flop][:rank] %></td>
+</tr>
+
+<% end %>
+</table>
+
+
+
+
+
