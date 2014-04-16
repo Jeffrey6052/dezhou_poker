@@ -69,7 +69,7 @@ class DezhouController < ApplicationController
     if tmp_pokers.length>=2
       v1,v2 = tmp_pokers[0,2].split('')
       checked_pokers = sort_playerPokers(v1,v2)
-      @search_results = DezhouReport.where(playerSum:playerSum,playerPokers:checked_pokers).all
+      @search_results = DezhouReport.where(playerSum:playerSum,playerPokers:checked_pokers).reverse_order(:isPlayerPokersFlush).all
     end
 
     erb :search
