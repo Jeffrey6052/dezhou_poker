@@ -38,11 +38,11 @@ class DezhouController < ApplicationController
 
   #playerSum
   def rank
+
     playerSum = params[:playerSum].to_i
     return redirect '/' unless valid_player_sum(playerSum)
 
     reports = DezhouReport.where(playerSum:playerSum)
-
     @reports = reports.sort_by{|r| r.riverWinnerTimes * 1.0 / r.allGameTimes }.reverse
     @reports_length = @reports.length
 
