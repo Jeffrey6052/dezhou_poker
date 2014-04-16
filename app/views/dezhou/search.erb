@@ -1,0 +1,239 @@
+
+<style type="text/css">
+
+body {
+  margin:0 auto;
+  width:1000px;
+}
+
+table {
+display: table;
+border-collapse: separate;
+border-spacing: 2px;
+border-color: gray;
+border-collapse: collapse;
+}
+
+table tr td {
+  border: 1px solid #98bf21;
+}
+
+td, th {
+display: table-cell;
+vertical-align: inherit;
+}
+
+a {
+  text-decoration:none;
+}
+
+.ui.input {
+  display: inline-block;
+  position: relative;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.ui.input input {
+  width: 100%;
+  font-family: "Helvetica Neue", "Helvetica", Arial;
+  margin: 0em;
+  padding: 0.85em 1.2em;
+  font-size: 0.875em;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  outline: none;
+  color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.3125em;
+  -webkit-transition: background-color 0.3s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.3s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.ui.input::-web inputkit-input-placeholder {
+  color: #E0E0E0;
+}
+
+.ui.input::-moz input-placeholder {
+  color: #E0E0E0;
+}
+.ui.input input:active,
+.ui.input.down input {
+  border-color: rgba(0, 0, 0, 0.3);
+  background-color: #FAFAFA;
+}
+.ui.input.focus input, 
+.ui.input input:focus {
+border-color: rgba(0,0,0,.2);
+color: rgba(0,0,0,.85);
+}
+
+.ui.icon.input>input:focus~.icon {
+opacity: 1;
+}
+
+.ui.icon.input input {
+padding-right: 3em!important;
+}
+
+.ui.icon.input > .icon {
+  cursor: default;
+  position: absolute;
+  opacity: 0.5;
+  top: 0px;
+  right: 0px;
+  margin: 0em;
+  width: 2.6em;
+  height: 100%;
+  padding-top: 0.82em;
+  text-align: center;
+  border-radius: 0em 0.3125em 0.3125em 0em;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+
+.ui.icon.input > .link.icon {
+  cursor: pointer;
+}
+
+.ui.icon.input input {
+  padding-right: 3em !important;
+}
+
+.ui.icon.input > .circular.icon {
+  top: 0.35em;
+  right: 0.5em;
+}
+
+.ui.input.focus input,
+.ui.input input:focus {
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.ui.input.focus input input::-webkit-input-placeholder,
+.ui.input input:focus input::-webkit-input-placeholder {
+  color: #AAAAAA;
+}
+
+.ui.input.focus input input::-moz-placeholder,
+.ui.input input:focus input::-moz-placeholder {
+  color: #AAAAAA;
+}
+
+/* Left Side */
+
+.ui.left.icon.input > .icon {
+  right: auto;
+  left: 1px;
+  border-radius: 0.3125em 0em 0em 0.3125em;
+}
+
+.ui.left.icon.input > .circular.icon {
+  right: auto;
+  left: 0.5em;
+}
+
+.ui.left.icon.input > input {
+  padding-left: 3em !important;
+  padding-right: 1.2em !important;
+}
+</style>
+
+<br>
+<div>
+<a href="/">德州扑克</a> / 
+<a href="/<%= params[:playerSum] %>"><%= params[:playerSum] %>人桌模拟局 </a> / 
+<a href="/<%= params[:playerSum] %>/rank?pokers=<%= params[:pokers] %>"><%= params[:playerSum] %>人桌手牌胜率排行榜</a> /
+<a href="/<%= params[:playerSum] %>/search?pokers=<%= params[:pokers] %>"><%= params[:playerSum] %>人桌胜率查询</a>
+</div>
+
+<br>
+
+<div>
+<div class="ui icon input">
+  <input type="text" id='search_input' onkeypress="checkEnterPress(event);" value='<%= params[:pokers] %>' placeholder="Search...">
+  <i class="icon" onclick="RankSearch();" style='margin-right: 10px;cursor: pointer;'>搜索</i>
+</div>
+</div>
+
+<script type="text/javascript">
+function checkEnterPress(e){
+  var e = e || window.event; 
+  if(e.keyCode == 13){ 
+    RankSearch();
+  }
+  return false;
+}
+
+function RankSearch(){
+  var pokers = document.getElementById("search_input").value;
+  window.location.href="/<%= params[:playerSum] %>/search?pokers="+pokers;
+}
+
+document.getElementById("search_input").focus();
+
+</script>
+
+<br>
+<div>
+  备注: 1,2,3,4,5,6,7,8,9,T,J,Q,K <br>
+  比如要搜索 'A8' 手牌，可以输入 A8,8A,a8,8a
+</div>
+
+<br>
+
+<% if @search_results and @search_results.length > 0 %>
+  
+  <br>
+
+  <table class='table-striped' style='text-align:center;line-height:30px;'>
+  <tr>
+    <td colspan="3"><%= params[:playerSum] %>人桌基准概率</td>
+    <td>&nbsp;&nbsp;</td>
+    <% base_percent = (100.0/params[:playerSum].to_i).round(1) %>
+    <td><%= base_percent %>%</td>
+    <td><%= base_percent %>%</td>
+    <td><%= base_percent %>%</td>
+  </tr>
+  <tr>
+    <td>&nbsp;牌值&nbsp;</td>
+    <td>&nbsp;同花&nbsp;</td>
+    <td>&nbsp;次 数&nbsp;</td>
+    <td>&nbsp;&nbsp;</td>
+    <td>&nbsp;第一名&nbsp;</td>
+    <td>&nbsp;第二名&nbsp;</td>
+    <td>&nbsp;第三名&nbsp;</td>
+  </tr>
+  <% @search_results.each do |report| %>
+  <tr>
+    <td><%= report.playerPokers %></td>
+    <td>
+      <% if report.isPlayerPokersFlush %>
+        <span style='color:green;font-weight:bold;'>OK</span>
+      <% else %>
+        <span style='color:red;font-weight:bold;'>NO</span>
+      <% end %>
+    </td>
+    <td><%= report.allGameTimes %></td>
+    <td></td>
+    <td style='cursor:pointer;' title="     <%= report.riverWinnerTimes %>">&nbsp;<%= ((report.riverWinnerTimes*1.0/report.allGameTimes)*100).round(1) %>%&nbsp;</td>
+    <td style='cursor:pointer;' title="     <%= report.riverSecondPlaceTimes %>">&nbsp;<%= ((report.riverSecondPlaceTimes*1.0/report.allGameTimes)*100).round(1) %>%&nbsp;</td>
+    <td style='cursor:pointer;' title="     <%= report.riverThirdPlaceTimes %>">&nbsp;<%= ((report.riverThirdPlaceTimes*1.0/report.allGameTimes)*100).round(1) %>%&nbsp;</td>
+  </tr>
+
+  <% end %>
+  </table>
+
+<% end %>
+
+
+
+
+
+

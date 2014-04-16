@@ -1,0 +1,1 @@
+web: SINAREY_ENV=heroku RACK_ENV=production bundle exec thin start -p $PORT

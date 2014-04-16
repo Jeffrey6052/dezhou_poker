@@ -1,0 +1,19 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: d4dlvm9u9ges1b
+  pool: 1
+  username: asycrlzwrpjysl
+  password: eUbEFgEgsOOOU6Fh4XnYHcFz_a
+  host: ec2-54-197-240-180.compute-1.amazonaws.com
+  port: 5432
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: d4dlvm9u9ges1b
+  pool: 1
+  username: asycrlzwrpjysl
+  password: eUbEFgEgsOOOU6Fh4XnYHcFz_a
+  host: ec2-54-197-240-180.compute-1.amazonaws.com
+  port: 5432
