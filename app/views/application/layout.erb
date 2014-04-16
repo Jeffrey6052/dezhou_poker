@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>德州扑克</title>
+  
+  <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+  <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" name="viewport">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  
+  <%== content_for?(:head).confirm && yield_content(:head) %>
+  <meta name="csrf-token" content="<%= form_authenticity_token %>" >
+</head>
+
+<body>
+<%== yield %>
+</body>
+
+</html>
+
