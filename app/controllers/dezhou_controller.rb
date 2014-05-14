@@ -108,6 +108,11 @@ class DezhouController < ApplicationController
     action_redirect "/"
   end
 
+
+  def pokernews_calculator
+    erb :pokernews_calculator,layout:false
+  end
+
   private
 
   def action_redirect(default)

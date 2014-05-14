@@ -17,5 +17,6 @@ class DezhouRoute < DezhouController
 
   route :get,:post, '/:playerSum/remove_table'     do remove_table end
 
+  route :get, '/calculator' do pokernews_calculator end
 
 end
